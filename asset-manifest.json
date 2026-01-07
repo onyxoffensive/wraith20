@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/wraith20/static/js/main.e900220d.js",
+    "main.js": "/wraith20/static/js/main.4803217d.js",
     "index.html": "/wraith20/index.html",
-    "main.e900220d.js.map": "/wraith20/static/js/main.e900220d.js.map"
+    "main.4803217d.js.map": "/wraith20/static/js/main.4803217d.js.map"
   },
   "entrypoints": [
-    "static/js/main.e900220d.js"
+    "static/js/main.4803217d.js"
   ]
 }
