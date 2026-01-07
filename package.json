@@ -1,0 +1,26 @@
+{
+  "name": "wraith-20-interface",
+  "version": "1.0.0",
+  "description": "Proprietary 20-Phase Strategic Reconnaissance Engine | Developed by Onyx Offensive",
+  "author": "Onyx Offensive",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "lucide-react": "^0.263.1",
+    "framer-motion": "^10.12.16"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "deploy": "npm run build && gh-pages -d build"
+  },
+  "keywords": [
+    "Red-Teaming",
+    "Offensive-Intelligence",
+    "Wraith-20",
+    "COBOL-Hardening",
+    "Institutional-Exposure"
+  ]
+}
