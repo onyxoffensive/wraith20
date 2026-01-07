@@ -1,27 +1,44 @@
-## Onyx Offensive - Demo Scanner
-WRAITH-20: STEP-PEN INTELLIGENCE
-Meet The Wraith-20. 💻  A professional-grade cyber scanner Powered by the Onyx Offensive protocol.  🔹 Phase: 20-Step Deep Pentest Recon 🔹 Target: Full perimeter visibility 🔹 Result: Zero blind spots.  Total Field Domination. 🛡️
+# WRAITH-20 // ONYX OFFENSIVE
+### *The Rose Gold Standard in Step-Pen Intelligence.*
 
-Standard scanners "spray and pray." Wraith-20 is different. Our proprietary Step-Pen (Step-wise Penetration) methodology maps your entire external attack surface and then "steps" through exploitation paths in real-time. It validates which vulnerabilities are theoretical and which are catastrophic. It’s not a 200-page report of fluff—it’s a tactical strike list.
+---
 
-**Live Demo:** https://github.com/onyxoffensive/wraith20/blob/main/README.md
+## 💎 The Wraith-20 Philosophy
+Standard security assessments are cluttered and unfocused. **Wraith-20** is the elite alternative. 
 
-20-Phase Reconnaissance Scanner demo interface. Shows potential clients the scanning process and results visualization.
+Powered by the **Onyx Offensive Protocol**, our proprietary **Step-Pen (Step-wise Penetration)** methodology doesn't just list vulnerabilities—it maps tactical attack paths. We provide full perimeter visibility and real-time exploitation validation to ensure **Total Field Domination.**
 
-⚠️ **This is a DEMO** - Results are simulated for demonstration purposes.
+### **The 20-Phase Tactical Sequence**
+Wraith-20 executes a surgical, high-fidelity reconnaissance path designed for high-stakes infrastructure:
+* **Intelligence Mapping:** Subdomain Discovery to DNS Infrastructure.
+* **Surface Analysis:** Web App Mapping and Source Code Recon.
+* **Exploitation Validation:** Credential Breach and Auth Assessment.
+* **Executive Action:** Data Exfiltration and Tactical Reporting.
 
-## For Real Scanning
-Contact us at: onyx.offensive@protonmail.com
+---
 
-## Tech Stack
-- React 18
-- Lucide Icons
-- Tailwind CSS (via CDN)
+## 🌐 Secure Interface Demo
+Experience the precision of the Onyx protocol. This sandboxed simulation demonstrates the 20-phase scanning logic and results visualization in a secure environment.
 
-## Run Locally
-```bash
-npm install
-npm start
-```
+**[▶ ENTER THE WRAITH-20 INTERFACE](https://onyxoffensive.github.io/wraith20/)**
 
-Visit `http://localhost:3000`
+> **🛡️ Security Disclosure:** > This is a **Sandboxed Simulation.** All scanning sequences and results are generated in a secure environment for demonstration purposes only. No actual network traffic is directed at third-party targets.
+
+---
+
+## 📈 Executive Engagement
+When the simulation identifies critical alarms, the transition to manual tactical analysis is seamless. Our boutique firm specializes in the "Rose Gold" tier of offensive security—bespoke, thorough, and devastatingly effective.
+
+**Secure Consultation:**
+📧 **onyx.offensive@protonmail.com**
+
+---
+
+## 🛠️ Infrastructure
+Built for high-performance intelligence visualization.
+* **Core:** React 18 (Prestige Build)
+* **Visuals:** Lucide-React / Tailwind CSS
+* **Deployment:** GitHub Pages (Secure Edge)
+
+---
+*© 2026 Onyx Offensive. All Rights Reserved. Excellence in Offensive Intelligence.*
