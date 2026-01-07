@@ -5,10 +5,11 @@
   "author": "Onyx Offensive",
   "private": true,
   "dependencies": {
+    "framer-motion": "^10.18.0",
+    "lucide-react": "^0.263.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1",
-    "framer-motion": "^10.12.16"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,5 +23,17 @@
     "Wraith-20",
     "COBOL-Hardening",
     "Institutional-Exposure"
-  ]
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

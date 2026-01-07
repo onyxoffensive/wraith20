@@ -1,182 +1,158 @@
-import React, { useState } from 'react';
-import { Play, Download, Eye, AlertCircle, CheckCircle, Clock, Zap, Target, Shield, Code, Database, Lock, Activity } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Target, CheckCircle2, FileText, Gem, Globe, Activity, Search, Cpu, Shield, Database, Lock, AlertCircle } from 'lucide-react';
 
-export default function Wraith20Scanner() {
+const App = () => {
   const [target, setTarget] = useState('');
-  const [scanType, setScanType] = useState('automated');
   const [isScanning, setIsScanning] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [currentPhase, setCurrentPhase] = useState(0);
-  const [results, setResults] = useState(null);
+  const [currentPhase, setCurrentPhase] = useState(-1);
+  const [showReport, setShowReport] = useState(false);
 
-  const phases = [
-    { id: 1, name: 'Passive OSINT', icon: '🔍', time: '5s' },
-    { id: 2, name: 'Subdomain Enumeration', icon: '🌐', time: '3s' },
-    { id: 3, name: 'IP Space Mapping', icon: '🗺️', time: '8s' },
-    { id: 4, name: 'Service Fingerprinting', icon: '🔬', time: '6s' },
-    { id: 5, name: 'DNS Security Audit', icon: '📡', time: '4s' },
-    { id: 6, name: 'Web Surface Crawling', icon: '🕸️', time: '7s' },
-    { id: 7, name: 'Cloud Perimeter Discovery', icon: '☁️', time: '5s' },
-    { id: 8, name: 'Leaked Source Recon', icon: '💻', time: '4s' },
-    { id: 9, name: 'Credential Exposure', icon: '🔐', time: '3s' },
-    { id: 10, name: 'Initial Attack Vector', icon: '📊', time: '2s' },
-    { id: 11, name: 'Automated Fuzzing', icon: '🎯', time: '10s' },
-    { id: 12, name: 'API Endpoint Analysis', icon: '🔌', time: '8s' },
-    { id: 13, name: 'Auth Logic Testing', icon: '🔑', time: '5s' },
-    { id: 14, name: 'Session Token Audit', icon: '🍪', time: '4s' },
-    { id: 15, name: 'CORS Configuration', icon: '🔀', time: '3s' },
-    { id: 16, name: 'Shadow IT Identification', icon: '🕵️', time: '6s' },
-    { id: 17, name: 'SSL/TLS Cipher Suite', icon: '🔒', time: '5s' },
-    { id: 18, name: 'Lateral Path Mapping', icon: '📈', time: '7s' },
-    { id: 19, name: 'Data Exfil Simulation', icon: '📤', time: '4s' },
-    { id: 20, name: 'Executive Risk Report', icon: '📋', time: '3s' }
+  const reconSteps = [
+    { name: "Subdomain Discovery", icon: "🌐" }, { name: "Live Host Verification", icon: "🎯" },
+    { name: "Port Scanning", icon: "🔓" }, { name: "Service Detection", icon: "🔬" },
+    { name: "DNS Infrastructure", icon: "📡" }, { name: "Web App Mapping", icon: "🕸️" },
+    { name: "Cloud Asset Discovery", icon: "☁️" }, { name: "Source Code Recon", icon: "💻" },
+    { name: "Credential Breach", icon: "🔐" }, { name: "Initial Assessment", icon: "📊" },
+    { name: "Vuln Scanning", icon: "🚨" }, { name: "Parameter Injection", icon: "💉" },
+    { name: "Auth Assessment", icon: "🔑" }, { name: "Session Analysis", icon: "🍪" },
+    { name: "Cross-Origin Testing", icon: "🔀" }, { name: "Service Exploitation", icon: "⚙️" },
+    { name: "Encryption Analysis", icon: "🔒" }, { name: "Post-Exploitation", icon: "📈" },
+    { name: "Data Exfiltration", icon: "📤" }, { name: "Executive Report", icon: "🏁" }
   ];
 
-  const mockResults = {
-    exposureScore: "8.4/10",
-    findings: [
-      { severity: 'CRITICAL', title: 'Unauthorized API Access via Orphaned Endpoint', phase: 12 },
-      { severity: 'CRITICAL', title: 'Exposed S3 Bucket containing PII', phase: 7 },
-      { severity: 'HIGH', title: 'Broken Access Control in Auth Logic', phase: 13 },
-      { severity: 'HIGH', title: 'Shadow IT: Unmonitored Staging Server', phase: 16 }
-    ]
-  };
+  useEffect(() => {
+    let interval;
+    if (isScanning && currentPhase < 19) {
+      interval = setInterval(() => {
+        setCurrentPhase(prev => prev + 1);
+      }, 700);
+    } else if (currentPhase === 19) {
+      setTimeout(() => setShowReport(true), 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isScanning, currentPhase]);
 
-  const startScan = () => {
+  const handleStart = (e) => {
+    e.preventDefault();
+    if (!target) return;
     setIsScanning(true);
-    setProgress(0);
-    setResults(null);
-    let prog = 0;
-    const timer = setInterval(() => {
-      prog += 1;
-      setProgress(prog);
-      setCurrentPhase(Math.floor((prog / 100) * 19));
-      if (prog >= 100) {
-        clearInterval(timer);
-        setIsScanning(false);
-        setResults(mockResults);
-      }
-    }, 120); 
+    setCurrentPhase(0);
+    setShowReport(false);
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white p-6 font-serif">
-      {/* HEADER SECTION */}
-      <div className="max-w-7xl mx-auto mb-10 border-b border-[#D4AF37]/20 pb-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="relative p-1 bg-gradient-to-b from-[#D4AF37] to-[#8C6239] rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.2)]">
-               <div className="bg-black p-2 rounded-md">
-                <Shield className="w-12 h-12 text-[#E2A76F]" /> {/* Rose Gold icon color */}
-               </div>
-            </div>
-            <div>
-              <h1 className="text-4xl font-light tracking-[0.2em] uppercase text-[#D4AF37]">
-                Wraith-20
-              </h1>
-              <p className="text-[#E2A76F] font-mono text-xs tracking-widest uppercase mt-1">
-                Institutional Reconnaissance Engine // Onyx Offensive
-              </p>
-            </div>
-          </div>
-          <div className="text-right border-l border-white/10 pl-8">
-            <div className="text-[10px] text-gray-500 uppercase tracking-[0.3em] mb-1">Risk Exposure Index</div>
-            <div className="text-4xl font-light text-[#D4AF37]">{results ? results.exposureScore : '--/--'}</div>
+    <div className="min-h-screen bg-[#020202] text-[#E7AC9A] font-sans selection:bg-[#E7AC9A] selection:text-black">
+      <style>{`
+        @keyframes sweep {
+          0% { left: -100%; }
+          100% { left: 100%; }
+        }
+        .shimmer-sweep {
+          position: absolute;
+          top: 0;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+          transform: skewX(-25deg);
+          animation: sweep 4s infinite;
+        }
+        .logo-display {
+          box-shadow: 0 0 40px rgba(231,172,154,0.3);
+          border: 2px solid #E7AC9A;
+        }
+      `}</style>
+
+      {/* GIANT LOGO HEADER */}
+      <header className="bg-black border-b-2 border-[#E7AC9A] p-10 flex flex-col items-center justify-center gap-8 relative z-50">
+        <div className="relative group">
+          <div className="logo-display relative w-[500px] h-[180px] bg-white rounded-xl flex items-center justify-center p-8 overflow-hidden shadow-2xl">
+             <img 
+               src="/logo.png" 
+               alt="ONYX" 
+               className="max-w-full max-h-full object-contain relative z-20" 
+               onError={(e) => { e.target.src = "https://www.onyxoffensive.com/favicon.ico"; }} 
+             />
+             <div className="shimmer-sweep z-30" />
+             <Gem size={16} className="absolute top-3 left-3 text-[#E7AC9A]" />
+             <Gem size={16} className="absolute top-3 right-3 text-[#E7AC9A]" />
+             <Gem size={16} className="absolute bottom-3 left-3 text-[#E7AC9A]" />
+             <Gem size={16} className="absolute bottom-3 right-3 text-[#E7AC9A]" />
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* CONFIGURATION SIDEBAR */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-[#111111] border border-[#D4AF37]/30 p-6 rounded-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-16 h-16 bg-[#D4AF37]/5 rotate-45 translate-x-8 -translate-y-8"></div>
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 text-[#E2A76F]">Targeting Parameters</h3>
-            
-            <input
-              type="text"
-              value={target}
-              onChange={(e) => setTarget(e.target.value)}
-              placeholder="DOMAIN ENTRY..."
-              className="w-full bg-black border border-[#D4AF37]/40 rounded-sm px-4 py-3 font-mono text-sm text-[#D4AF37] focus:outline-none focus:border-[#D4AF37] mb-6 transition-all"
+        <div className="text-center">
+            <h1 className="text-6xl font-light tracking-[0.5em] uppercase text-white leading-none">Wraith <span className="font-bold text-[#E7AC9A]">20</span></h1>
+            <p className="text-[10px] tracking-[1em] text-[#E7AC9A] mt-4 uppercase font-black opacity-80 underline decoration-1 underline-offset-8">Offensive Intelligence Platform</p>
+        </div>
+      </header>
+
+      <main className="max-w-[1500px] mx-auto p-12">
+        {/* REFINED TARGET INPUT - SCALED DOWN */}
+        <div className="flex justify-center mb-16">
+          <div className="bg-[#0a0a0a] border-2 border-[#E7AC9A] rounded-xl p-6 flex items-center gap-6 shadow-2xl w-full max-w-2xl transition-all hover:border-white">
+            <input 
+              type="text" placeholder="ENTER TARGET DOMAIN..." value={target} onChange={(e) => setTarget(e.target.value)}
+              className="flex-1 bg-transparent text-2xl font-bold text-white outline-none placeholder:text-[#E7AC9A]/10 tracking-widest uppercase"
             />
-            
-            <div className="space-y-4 mb-8">
-               <button onClick={() => setScanType('automated')} className={`w-full text-left p-4 border transition-all ${scanType === 'automated' ? 'border-[#D4AF37] bg-[#D4AF37]/10' : 'border-white/5 bg-white/5 opacity-40'}`}>
-                 <div className="text-[10px] font-bold uppercase tracking-widest">Automated Scan</div>
-                 <div className="text-[9px] text-gray-400 mt-1 italic">Tactical Surface Validation</div>
-               </button>
-               <button onClick={() => setScanType('manual')} className={`w-full text-left p-4 border transition-all ${scanType === 'manual' ? 'border-[#E2A76F] bg-[#E2A76F]/10' : 'border-white/5 bg-white/5 opacity-40'}`}>
-                 <div className="text-[10px] font-bold uppercase tracking-widest">Strategic Deep Dive</div>
-                 <div className="text-[9px] text-gray-400 mt-1 italic">Human-Led Infiltration</div>
-               </button>
-            </div>
-
-            <button
-              onClick={startScan}
-              disabled={!target || isScanning}
-              className="w-full bg-[#D4AF37] text-black font-bold py-4 text-xs uppercase tracking-[0.2em] hover:bg-white transition-all disabled:opacity-10"
-            >
-              {isScanning ? 'System Executing...' : 'Begin Reconnaissance'}
+            <button onClick={handleStart} className="bg-white text-black px-10 py-3 rounded font-black uppercase tracking-[0.3em] text-lg hover:bg-[#E7AC9A] transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+              Engage
             </button>
           </div>
         </div>
 
-        {/* DATA VISUALIZATION */}
-        <div className="lg:col-span-3 space-y-6">
-          {/* PROGRESS BAR */}
-          <div className={`h-1 w-full bg-white/5 rounded-full overflow-hidden mb-6 ${!isScanning && 'opacity-0'}`}>
-             <div className="h-full bg-gradient-to-r from-[#D4AF37] to-[#E2A76F] shadow-[0_0_10px_#D4AF37] transition-all duration-300" style={{ width: `${progress}%` }} />
-          </div>
+        {/* THE 20-PHASE GRID - FULL SCALE VISIBILITY */}
+        {!showReport ? (
+          <div className="grid grid-cols-5 gap-8">
+            {reconSteps.map((step, i) => {
+              const isActive = i === currentPhase;
+              const isComplete = i < currentPhase;
+              return (
+                <div key={i} className={`
+                  relative h-44 rounded-2xl border-2 transition-all duration-500 flex flex-col items-center justify-center overflow-hidden
+                  bg-[url('https://www.transparenttextures.com/patterns/black-diamond.png')]
+                  ${isActive ? 'bg-[#1a1a1a] border-white scale-110 z-20 shadow-[0_0_60px_#E7AC9A]' : 
+                    isComplete ? 'bg-[#0a0a0a] border-[#E7AC9A] opacity-100 shadow-[inset_0_0_20px_black]' : 
+                    'bg-black border-[#E7AC9A]/20 opacity-100'}
+                `}>
+                  <Gem size={14} className={`absolute top-3 left-3 ${isActive ? 'text-white' : 'text-[#E7AC9A] opacity-40'}`} />
+                  <Gem size={14} className={`absolute bottom-3 right-3 ${isActive ? 'text-white' : 'text-[#E7AC9A] opacity-40'}`} />
+                  
+                  <span className="text-6xl mb-3 drop-shadow-[0_0_15px_rgba(231,172,154,0.5)]">{step.icon}</span>
+                  <p className={`text-[11px] font-black uppercase tracking-widest text-center px-4 ${isActive ? 'text-white' : 'text-[#E7AC9A]'}`}>
+                    {step.name}
+                  </p>
 
-          {/* PHASES GRID */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            {phases.map((p, i) => (
-              <div key={p.id} className={`p-4 border transition-all duration-500 ${
-                  currentPhase >= i && isScanning ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 
-                  currentPhase > i ? 'border-[#E2A76F]/20 opacity-40' : 'border-white/5 bg-black'
-                }`}>
-                <div className="text-xl mb-2 opacity-80">{p.icon}</div>
-                <div className="text-[9px] font-bold uppercase tracking-tighter text-gray-400">{p.name}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* RESULTS VIEW */}
-          {results && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/10">
-              <div className="space-y-4">
-                <h3 className="text-[#FF4D4D] text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
-                  <AlertCircle className="w-3 h-3" /> Critical Vulnerabilities
-                </h3>
-                {results.findings.map((f, i) => (
-                  <div key={i} className="bg-white/5 border-l-2 border-[#FF4D4D] p-4">
-                    <div className="text-[8px] text-[#FF4D4D] font-bold">PHASE {f.phase} // {f.severity}</div>
-                    <div className="text-sm tracking-tight mt-1">{f.title}</div>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="bg-[#111111] border border-[#D4AF37]/20 p-6 rounded-sm">
-                <h3 className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] mb-4">Summary Briefing</h3>
-                <div className="grid grid-cols-2 gap-6 font-mono mb-6">
-                  <div>
-                    <div className="text-gray-600 text-[8px] uppercase">Unique Hosts</div>
-                    <div className="text-2xl text-white">31</div>
-                  </div>
-                  <div>
-                    <div className="text-gray-600 text-[8px] uppercase">Shadow Nodes</div>
-                    <div className="text-2xl text-white">114</div>
-                  </div>
+                  {isActive && <div className="shimmer-sweep opacity-40" />}
+                  {isComplete && <div className="absolute top-3 right-3"><CheckCircle2 size={18} className="text-white shadow-lg" /></div>}
                 </div>
-                <button className="w-full border border-[#D4AF37] text-[#D4AF37] py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all">
-                  Request Full Disclosure Report
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+              );
+            })}
+          </div>
+        ) : (
+          /* FINAL EXECUTIVE REPORT */
+          <div className="bg-black border-[8px] border-[#E7AC9A] rounded-[50px] p-20 shadow-[0_0_150px_rgba(231,172,154,0.3)] max-w-5xl mx-auto animate-in zoom-in-95 duration-700">
+             <div className="flex justify-between border-b-4 border-[#E7AC9A] pb-12 mb-12">
+                <div>
+                  <h2 className="text-9xl font-black italic text-white uppercase tracking-tighter leading-none">INTEL</h2>
+                  <p className="text-2xl font-bold tracking-[1em] text-[#E7AC9A] mt-4 opacity-80 uppercase">Full Chain Compromise</p>
+                </div>
+                <div className="bg-[#E7AC9A] text-black px-12 py-8 rounded-[30px] text-center shadow-2xl">
+                    <p className="text-xs font-black uppercase mb-2 tracking-widest">RISK INDEX</p>
+                    <p className="text-[10rem] font-black italic leading-none">9.8</p>
+                </div>
+             </div>
+             <button onClick={() => window.print()} className="w-full bg-white text-black py-10 rounded-2xl font-black text-5xl uppercase tracking-[0.5em] shadow-[0_0_50px_rgba(255,255,255,0.2)] hover:bg-[#E7AC9A] transition-all active:scale-95">
+                DOWNLOAD PDF
+             </button>
+          </div>
+        )}
+      </main>
+
+      <footer className="mt-20 border-t-2 border-[#E7AC9A]/20 bg-black p-12 text-center opacity-40">
+        <p className="text-xs font-black text-[#E7AC9A] tracking-[2em] uppercase">Wraith-20 // Onyx Offensive Private Asset</p>
+      </footer>
     </div>
   );
-}
+};
+
+export default App;
