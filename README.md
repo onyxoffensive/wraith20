@@ -4,7 +4,7 @@ Meet The Wraith-20. 💻  A professional-grade cyber scanner Powered by the Onyx
 
 Standard scanners "spray and pray." Wraith-20 is different. Our proprietary Step-Pen (Step-wise Penetration) methodology maps your entire external attack surface and then "steps" through exploitation paths in real-time. It validates which vulnerabilities are theoretical and which are catastrophic. It’s not a 200-page report of fluff—it’s a tactical strike list.
 
-**Live Demo:** [https://yourusername.github.io/onyx-offensive-demo](URL)
+**Live Demo:** https://github.com/onyxoffensive/wraith20/blob/main/README.md
 
 20-Phase Reconnaissance Scanner demo interface. Shows potential clients the scanning process and results visualization.
 
